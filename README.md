@@ -127,7 +127,6 @@ MACOSX_DEPLOYMENT_TARGET=10.13
 
 // Swift Language Version
 // 
-// 
 SWIFT_VERSION = 4.2
 ```
 
