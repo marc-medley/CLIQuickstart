@@ -10,6 +10,7 @@ import Foundation
 public final class CLIQuickstart {
     private let arguments: [String]
 
+    /// NYI: does provide for a terminationHandler(Process) -> Void
     public init(arguments: [String] = CommandLine.arguments) { 
         self.arguments = arguments
     }

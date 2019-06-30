@@ -6,6 +6,22 @@ import XCTest
 import CLIQuickstartCore
 
 final class CLIQuickstartTests: XCTestCase {
+    
+    func terminationExample(process: Process, expectation: XCTestExpectation) {
+        DispatchQueue.main.async {
+            print("•••ENTER••• terminationExample dispatch")
+            let taskStatus = process.terminationStatus
+            
+            if (taskStatus == 0) {
+                debugPrint("Pass: terminationExample() task completed sucessfully!")
+                expectation.fulfill()
+            } else {
+                debugPrint("Fail: terminationExample() task did not complete.")
+            }
+            print("•••EXIT••• terminationExample dispatch")
+        }
+    }
+    
     func testExecutable() throws {
         print("\n######################")
         print("## testExecutable() ##")
@@ -16,41 +32,63 @@ final class CLIQuickstartTests: XCTestCase {
             return
         }
 
+        // Create an expectation for a background task.
+        let expectation = XCTestExpectation(description: "Some background task.")
+
+        
         // build products directory
         let executableUrl = productsDirectory.appendingPathComponent("CLIQuickstart")
 
         // https://developer.apple.com/documentation/foundation/process
         let process = Process()
         process.executableURL = executableUrl
-        process.launchPath = executableUrl.path
 
-        let pipeOutput = Pipe()
-        process.standardOutput = pipeOutput
-        let pipeError = Pipe()
-        process.standardError = pipeError
+        var arguments = [String]()
+        arguments.append("-flag")
+        arguments.append("--param1=value1")
+        arguments.append(contentsOf: ["--param2=value2", "-other-flag"])
+        process.arguments = arguments
+
+        process.terminationHandler = { 
+            (task: Process) -> Void in
+            print("•••ENTER••• terminationHandler")
+            self.terminationExample(process: task, expectation: expectation)
+            print("•••EXIT••• terminationHandler")
+        }
+        
+        let stdoutPipe = Pipe()
+        process.standardOutput = stdoutPipe
+        let stderrPipe = Pipe()
+        process.standardError = stderrPipe
         
         try process.run()
-
-        let dataOutput = pipeOutput.fileHandleForReading.readDataToEndOfFile()
-        if let stdOutput = String(data: dataOutput, encoding: .utf8) {
-            print("\n## stdOutput\n\(stdOutput)")
-            XCTAssert(stdOutput.contains("Hello"))
+        
+        let stdoutData = stdoutPipe.fileHandleForReading.readDataToEndOfFile()
+        if let stdoutStr = String(data: stdoutData, encoding: .utf8) {
+            print("\n## stdOutput\n\(stdoutStr)")
+            XCTAssert(stdoutStr.contains("Hello"))
         }
         else {
             throw CLIQuickstart.Error.failedToDoSomething
         }
         
-        let dataError = pipeError.fileHandleForReading.readDataToEndOfFile()
-        if let stdError = String(data: dataError, encoding: String.Encoding.utf8) {
-            print("\n## stdError\n\(stdError)")
+        let stderrData = stderrPipe.fileHandleForReading.readDataToEndOfFile()
+        if let stderrStr = String(data: stderrData, encoding: String.Encoding.utf8) {
+            print("\n## stdError\n\(stderrStr)")
         }
         else {
             throw CLIQuickstart.Error.failedToDoSomething
         }
 
         process.waitUntilExit()
-        let status = process.terminationStatus
+        let status: Int32 = process.terminationStatus
         print("## TERMINATION STATUS: \(status)")
+
+        let reason: Process.TerminationReason = process.terminationReason
+        print("## TERMINATION REASON: \(reason.rawValue) (.exit==1, .uncaughtSignal==2)")
+        
+        // Wait until the expectation is fulfilled, with a timeout of 10 seconds.
+        wait(for: [expectation], timeout: 10.0)
     }
     
     func testFramework() throws {
@@ -59,7 +97,10 @@ final class CLIQuickstartTests: XCTestCase {
         print("#####################")
         
         // Create an instance of the command line tool framework
-        let arguments = ["--param=value", "Hello.swift"]
+        var arguments = [String]()
+        arguments.append("-flag")
+        arguments.append("--param1=value1")
+        arguments.append(contentsOf: ["--param2=value2", "-other-flag"])
         let tool = CLIQuickstart(arguments: arguments)
 
         // Run the tool and assert that the file was created
@@ -72,7 +113,7 @@ final class CLIQuickstartTests: XCTestCase {
             throw CLIQuickstart.Error.failedToDoSomething
         }
     }
-
+    
     /// Returns path to the built products directory.
     var productsDirectory: URL {
       #if os(macOS)
@@ -84,9 +125,19 @@ final class CLIQuickstartTests: XCTestCase {
         return Bundle.main.bundleURL
       #endif
     }
-
+    
+    func testProductsDirectory() {
+        print("\n#############################")
+        print("## testProductsDirectory() ##")
+        print("#############################\n")
+        
+        print("productsDirectory = '\(productsDirectory)'")
+        
+    }
+    
     static var allTests = [
         ("testExample", testExecutable),
         ("testExample", testFramework),
+        ("testProductsDirectory", testProductsDirectory),
     ]
 }

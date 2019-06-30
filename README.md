@@ -189,7 +189,8 @@ _Ubuntu_
 # Linking ./.build/x86_64-apple-macosx10.10/release/CLIQuickstart
 
 cd .build/release
-cp -f CLIQuickstart /usr/local/bin/CLIQuickstart
+#cp -f CLIQuickstart /usr/local/bin/CLIQuickstart
+cp -f CLIQuickstart /opt/local/bin/CLIQuickstart
 ```
 
 ## Resources <a id="linkResources"></a>[▴](#toc)
