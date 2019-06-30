@@ -1,0 +1,115 @@
+///////////////////////////////////////////////////////////////////////////////// 
+/// 
+/// Package.xcconfig
+/// 
+
+/// ISSUE: xcconfig file does not set SKIP_INSTALL to NO. Maybe for security?
+/// WORKAROUND: manually set SKIP_INSTALL to NO when xcode project is created.
+
+/// Use: swift package generate-xcodeproj --xcconfig-overrides Package.xcconfig
+/// Limits: 
+///   * currently assigns the same xcconfig file to both debug and release builds
+///   * uses only the last --xcconfig-overrides PATH_FILE
+///   * drag & drop *.framework to Project Panel > Target > Embedded Binaries 
+
+//////////////
+/// TARGET ///
+//////////////
+
+/// macOS Deployment Target
+/// 
+/// Code will load on this and later versions of macOS. 
+/// Framework APIs that are unavailable in earlier versions will be weak-linked; 
+/// your code should check for `null` function pointers 
+/// or specific system versions before calling newer APIs.
+
+MACOSX_DEPLOYMENT_TARGET=10.13
+
+///////////////
+// PACKAGING //
+///////////////
+
+// Defines Module
+// 
+// If enabled, the product will be treated as defining its own module. This enables
+// automatic production of LLVM module map files when appropriate, and allows the product
+// to be imported as a module.
+
+//DEFINES_MODULE = YES
+
+////////////////// 
+/// DEPLOYMENT /// 
+////////////////// 
+
+/// Deployment Location
+/// 
+/// If enabled, built products are placed in their installed locations 
+/// in addition to the built products folder.
+/// Default: NO
+    
+//DEPLOYMENT_LOCATION = YES
+
+/// Deployment Postprocessing
+/// 
+/// If enabled, indicates that binaries should be stripped 
+/// and file mode, owner, and group information should be set to standard values.
+/// Default: NO
+
+//DEPLOYMENT_POSTPROCESSING = NO
+
+/// Installation Build Products Location
+/// 
+/// The path at which all products will be rooted when performing an install build.
+/// Default: /tmp/$(PROJECT_NAME).dst
+
+//DSTROOT = /opt/frameworks
+
+/// Installation Directory
+/// 
+/// The directory in which to install the build products. 
+/// Result: DSTROOT + INSTALL_PATH + $(PROJECT_NAME)
+/// Default: $(LOCAL_LIBRARY_DIR)/Frameworks aka /Library/Frameworks
+
+//INSTALL_PATH = /
+
+/// Skip Install
+/// 
+/// If enabled, don't install built products 
+/// even if deployment locations are active.
+/// Default: YES
+/// Workaround: manually set to no when xcode project is generated.
+
+//SKIP_INSTALL = YES
+
+/// Strip Debug Symbols During Copy
+/// 
+/// Specifies whether binary files that are copied during the build, 
+/// such as in a Copy Bundle Resources or Copy Files build phase, 
+/// should be stripped of debugging symbols. 
+/// It does not cause the linked product of a target to be stripped.
+/// Default: Debug NO, Release YES
+
+//COPY_PHASE_STRIP = NO
+
+/// Strip Linked Product
+/// 
+/// If enabled, the linked product of the build will be stripped of symbols 
+/// when performing deployment postprocessing.
+/// Default: YES
+
+//STRIP_INSTALLED_PRODUCT
+
+/// Strip Swift Symbols
+/// 
+/// Adjust the level of symbol stripping specified by the STRIP_STYLE setting
+/// so that when the linked product of the build is stripped, 
+/// all Swift symbols will be removed.
+/// Default: YES
+
+//STRIP_SWIFT_SYMBOLS
+
+// Swift Language Version
+// 
+// 
+
+SWIFT_VERSION = 4.2
