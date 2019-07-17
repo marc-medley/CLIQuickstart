@@ -1,7 +1,7 @@
 # CLIQuickstart
 
 <a id="toc"></a>
-[Original Steps](#linkOriginalSteps) • 
+[Original Project Setup](#linkOriginalProjectSetup) • 
 [Resources](#linkResources) 
 
 _`CLIQuickstart` is a quickstart template for a command line interface tool based on the Swift Package Manager.  The package provides both an executable module and a core framework module.  The executable plus core approach allows the `CLIQuickstart` framework to also be used as dependency in other Swift Packages._
@@ -13,7 +13,7 @@ CLIQuickstart --param=value
 
 ```
 
-## Original Steps <a id="linkOriginalSteps"></a>[▴](#toc)
+## Original Project Setup <a id="linkOriginalProjectSetup"></a>[▴](#toc)
 
 Summary of original steps used to create the CLIQuickstart example template.
 
