@@ -1,10 +1,15 @@
-// swift-tools-version:4.2
+// swift-tools-version:5.1
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
     name: "CLIQuickstart",
+    platforms: [
+        // specify each minimum deployment requirement, 
+        // otherwise the platform default minimum is used.
+        .macOS(.v10_13), // .v10_13 High Sierra .v10_14 Mojave, .v10_15 Catalina 
+    ],
     // products: [
     //     // Products define the executables and libraries produced by a package, 
     //     // and make them visible to other packages.
@@ -34,5 +39,5 @@ let package = Package(
             name: "CLIQuickstartTests",
             dependencies: ["CLIQuickstartCore"]),
     ],
-    swiftLanguageVersions: [.v4_2] // add .v5 when tools version is 5.0
+    swiftLanguageVersions: [.v5]
 )
