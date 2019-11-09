@@ -1,10 +1,5 @@
-.DS_Store
-/.build
-/Packages
-*.xcodeproj
-
 ## Place to put notes that are not to be checked in.
-_Notes/
+*_Notes/
 
 #################
 ## Apple macOS ##
@@ -15,7 +10,7 @@ _Notes/
 #################
 ## Apple Xcode ##
 #################
-/*.xcodeproj
+*.xcodeproj
 
 ###########################
 ## Swift Package Manager ##
