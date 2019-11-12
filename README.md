@@ -1,8 +1,9 @@
 # CLIQuickstart
 
-<a id="toc"></a>
-[Original Project Setup](#linkOriginalProjectSetup) • 
-[Resources](#linkResources) 
+<a id="contents"></a>
+[Original Project Setup](#original-project-setup-) • 
+[Miscellaneous](#miscellaneous-) • 
+[Resources](#resources-) 
 
 _`CLIQuickstart` is a quickstart template for a command line interface tool based on the Swift Package Manager.  The package provides both an executable module and a core framework module.  The executable plus core approach allows the `CLIQuickstart` framework to also be used as dependency in other Swift Packages._
 
@@ -10,10 +11,9 @@ _`CLIQuickstart` is a quickstart template for a command line interface tool base
 
 ```sh
 CLIQuickstart --param=value
-
 ```
 
-## Original Project Setup <a id="linkOriginalProjectSetup"></a>[▴](#toc)
+## Original Project Setup <a id="original-project-setup-"></a>[▴](#contents)
 
 Summary of original steps used to create the CLIQuickstart example template.
 
@@ -193,7 +193,12 @@ cd .build/release
 cp -f CLIQuickstart /opt/local/bin/CLIQuickstart
 ```
 
-## Resources <a id="linkResources"></a>[▴](#toc)
+## Miscellaneous <a id="miscellaneous-"></a>[▴](#contents)
+
+* The archive action does not code sign command-line executable products from Swift packages. (48717735) [Xcode 11 release notes.](https://developer.apple.com/documentation/xcode_release_notes/xcode_11_release_notes)
+    * Workaround: Manually sign archived executables using the codesign tool before distributing them.
+
+## Resources <a id="resources-"></a>[▴](#contents)
 
 * [Github/swift-package-manager: PackageDescription API Version 4.2 ⇗](https://github.com/apple/swift-package-manager/blob/master/Documentation/PackageDescriptionV4_2.md)
 * [Swift by Sundell: Building a command line tool using the Swift Package Manager ⇗](https://www.swiftbysundell.com/posts/building-a-command-line-tool-using-the-swift-package-manager)
