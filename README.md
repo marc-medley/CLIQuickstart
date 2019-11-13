@@ -1,16 +1,16 @@
-# CLIQuickstart
+# CLIQuickstartTool
 
 <a id="contents"></a>
 [Original Project Setup](#original-project-setup-) • 
 [Miscellaneous](#miscellaneous-) • 
 [Resources](#resources-) 
 
-_`CLIQuickstart` is a quickstart template for a command line interface tool based on the Swift Package Manager.  The package provides both an executable module and a core framework module.  The executable plus core approach allows the `CLIQuickstart` framework to also be used as dependency in other Swift Packages._
+_`CLIQuickstartTool` is a quickstart template for a library with a command line interface tool based on the Swift Package Manager.  The package provides both an executable module and a core framework module.  The executable plus core approach allows the `CLIQuickstartLib` framework to also be used as dependency in other Swift Packages._
 
 **Options:**
 
 ```sh
-CLIQuickstart --param=value
+CLIQuickstartTool --param=value
 ```
 
 ## Original Project Setup <a id="original-project-setup-"></a>[▴](#contents)
@@ -18,9 +18,9 @@ CLIQuickstart --param=value
 Summary of original steps used to create the CLIQuickstart example template.
 
 ``` sh
-mkdir CLIQuickstart
-cd CLIQuickstart
-swift package init --type executable
+mkdir CLIQuickstartLib
+cd CLIQuickstartLib
+swift package init --type library
 
 # review & update .gitignore, as needed
 nano .gitignore
@@ -28,16 +28,16 @@ nano .gitignore
 
 **Framework & Executable Modules**
 
-Create two modules: one framework `CLIQuickstart` and one executable `CLIQuickstartCore`. Each top level folder under `Sources` defines a module.
+Create two modules: one framework `CLIQuickstartLib` and one executable `CLIQuickstartTool`. Each top level folder under `Sources` defines a module.
 
 The executable module only contains the `main.swift` file. The core framework contains all of the tool’s actual functionality.  The separation of the core framework provides for *easier testing*; and, the *core framework can be used as a dependency in other executables*.
 
 ``` sh
 // create core framework module
-mkdir Sources/CLIQuickstartCore
+mkdir Sources/CLIQuickstartTool
 ```
 
-Update `Package.swift` to define two targets — one for the `CLIQuickstart` executable module and one for the `CLIQuickstartCore` framework.
+Update `Package.swift` to define two targets — one for the `CLIQuickstartTool` executable module and one for the `CLIQuickstartLib` framework.
 
 ``` sh
 # edit Package.swift
@@ -50,19 +50,19 @@ _Package.swift_
 import PackageDescription
 
 let package = Package(
-    name: "CLIQuickstart",
+    name: "CLIQuickstartLib",
     // ...
     targets: [
         .target(
-            name: "CLIQuickstart",
-            dependencies: ["CLIQuickstartCore"]),
-        .target(
-            name: "CLIQuickstartCore",
+            name: "CLIQuickstartLib",
             dependencies: []),
-        // Test CLIQuickstartCore directly instead of CLIQuickstart main.swift
+        .target(
+            name: "CLIQuickstartTool",
+            dependencies: ["CLIQuickstartLib"]),
+        // Test CLIQuickstartLib directly instead of CLIQuickstartTool main.swift
         .testTarget(
             name: "CLIQuickstartTests",
-            dependencies: ["CLIQuickstartCore"]),
+            dependencies: ["CLIQuickstartLib"]),
         // ...
     ]
 )
@@ -70,18 +70,18 @@ let package = Package(
 
 **Define Programmatic Entry Point**
 
-Create a new CLIQuickstart.swift core framework class.
+Create a new CLIQuickstartLib.swift core framework class.
 
 ``` sh
-# nano Sources/CLIQuickstartCore/CLIQuickstart.swift
-touch Sources/CLIQuickstartCore/CLIQuickstart.swift
-edit Sources/CLIQuickstartCore/CLIQuickstart.swift 
+# nano Sources/CLIQuickstartLib/CLIQuickstart.swift
+touch Sources/CLIQuickstartLib/CLIQuickstartLib.swift
+edit Sources/CLIQuickstartLib/CLIQuickstartLib.swift 
 ```
 
 ``` swift
 import Foundation
 
-public final class CLIQuickstart {
+public final class CLIQuickstartRuntime {
     private let arguments: [String]
 
     public init(arguments: [String] = CommandLine.arguments) { 
@@ -103,7 +103,7 @@ edit Sources/CLIQuickstart/main.swift
 
 
 ``` swift
-import CLIQuickstartCore
+import CLIQuickstartLib
 
 let tool = CLIQuickstart()
 
@@ -147,7 +147,7 @@ swift build
 
 **Test**
 
-The `CLIQuickstartCore` framework can be tested directly. Or, a `Process` can be run to test the `CLIQuickstart` executable.
+The `CLIQuickstartLib` framework can be tested directly. Or, a `Process` can be run to test the `CLIQuickstart` executable.
 
 _Command Line Tests_
 
