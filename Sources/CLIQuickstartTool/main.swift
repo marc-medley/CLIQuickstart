@@ -1,4 +1,4 @@
-import CLIQuickstartCore
+import CLIQuickstartLib
 
 let tool = CLIQuickstart()
 
@@ -7,5 +7,4 @@ do {
 } catch {
     print("Whoops! An error occurred: \(error)")
 }
-
 

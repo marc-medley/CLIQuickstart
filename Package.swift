@@ -37,10 +37,12 @@ let package = Package(
         .target(
             name: "CLIQuickstartTool",
             dependencies: ["CLIQuickstartLib"]),
-        // Test CLIQuickstartLib directly instead of CLIQuickstart main.swift
+        // Test CLIQuickstartLib directly instead of CLIQuickstartTool main.swift
         .testTarget(
             name: "CLIQuickstartLibTests",
             dependencies: ["CLIQuickstartLib"]),
     ],
-    swiftLanguageVersions: [.v5]
+    swiftLanguageVersions: [.v5],
+    cLanguageStandard: .c11, // gnu11, iso9899_2011
+    cxxLanguageStandard: .cxx14 // cxx11, gnucxx11, cxx14, gnucxx14, cxx1z, gnucxx1z
 )

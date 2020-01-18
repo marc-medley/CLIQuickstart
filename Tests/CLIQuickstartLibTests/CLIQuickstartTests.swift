@@ -3,7 +3,7 @@ import XCTest
 
 // testable attribute allows access to `internal` scope items for internal framework testing.
 @testable 
-import CLIQuickstartCore
+import CLIQuickstartLib
 
 final class CLIQuickstartTests: XCTestCase {
     
@@ -37,7 +37,7 @@ final class CLIQuickstartTests: XCTestCase {
 
         
         // build products directory
-        let executableUrl = productsDirectory.appendingPathComponent("CLIQuickstart")
+        let executableUrl = productsDirectory.appendingPathComponent("CLIQuickstartTool")
 
         // https://developer.apple.com/documentation/foundation/process
         let process = Process()
@@ -89,6 +89,7 @@ final class CLIQuickstartTests: XCTestCase {
         
         // Wait until the expectation is fulfilled, with a timeout of 10 seconds.
         wait(for: [expectation], timeout: 10.0)
+        print("#####\n")        
     }
     
     func testFramework() throws {
@@ -112,9 +113,10 @@ final class CLIQuickstartTests: XCTestCase {
         } catch {
             throw CLIQuickstart.Error.failedToDoSomething
         }
+        print("#####\n")
     }
     
-    /// Returns path to the built products directory.
+    /// Returns path to the build products directory.
     var productsDirectory: URL {
       #if os(macOS)
         for bundle in Bundle.allBundles where bundle.bundlePath.hasSuffix(".xctest") {
@@ -132,7 +134,7 @@ final class CLIQuickstartTests: XCTestCase {
         print("#############################\n")
         
         print("productsDirectory = '\(productsDirectory)'")
-        
+        print("#####\n")        
     }
     
     static var allTests = [
