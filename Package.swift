@@ -8,7 +8,7 @@ let package = Package(
     platforms: [
         // specify each minimum deployment requirement, 
         // otherwise the platform default minimum is used.
-        .macOS(.v10_13), // .v10_13 High Sierra .v10_14 Mojave, .v10_15 Catalina 
+        .macOS(.v10_15), // .v10_13 High Sierra .v10_14 Mojave, .v10_15 Catalina 
     ],
     products: [
         // Products define the executables and libraries produced by a package, 

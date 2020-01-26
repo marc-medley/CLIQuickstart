@@ -1,6 +1,6 @@
 //
-//  StdioExtensions.swift
-//  CLIQuickstart
+//  CLIQuickstart.swift
+//  CLIQuickstartLib
 //
 //  Created by marc on 2019.06.29.
 //

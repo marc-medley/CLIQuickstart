@@ -138,8 +138,8 @@ final class CLIQuickstartTests: XCTestCase {
     }
     
     static var allTests = [
-        ("testExample", testExecutable),
-        ("testExample", testFramework),
+        ("testExecutable", testExecutable),
+        ("testFramework", testFramework),
         ("testProductsDirectory", testProductsDirectory),
     ]
 }
