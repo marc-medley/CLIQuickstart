@@ -9,7 +9,7 @@ import Foundation
 public func showEnvironment() {
     print("\n###########################")
     print(  "## ProcessInfo ARGUMENTS ##")
-    for a in ProcessInfo.processInfo.arguments {
+    for a in ProcessInfo.processInfo.arguments { // CommandLine.arguments
         print(a)
     }
     
