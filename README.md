@@ -116,25 +116,11 @@ do {
 
 **Xcode**
 
-``` sh
-# edit Package.xcconfig 
-nano Package.xcconfig
-```
-
-``` ini
-/// macOS Deployment Target
-MACOSX_DEPLOYMENT_TARGET=10.13
-
-// Swift Language Version
-// 
-SWIFT_VERSION = 4.2
-```
-
 Generate an Xcode project.
 
 ``` sh
 swift package update
-swift package generate-xcodeproj --xcconfig-overrides Package.xcconfig
+swift package generate-xcodeproj --xcconfig-overrides
 ```
 
 **Run**
@@ -196,10 +182,10 @@ cp -f CLIQuickstart /opt/local/bin/CLIQuickstart
 ## Miscellaneous <a id="miscellaneous-"></a>[▴](#contents)
 
 * The archive action does not code sign command-line executable products from Swift packages. (48717735) [Xcode 11 release notes.](https://developer.apple.com/documentation/xcode_release_notes/xcode_11_release_notes)
-    * Workaround: Manually sign archived executables using the codesign tool before distributing them.
+    * Workaround: Manually sign archived executables using the `codesign` tool before distributing them.
 
 ## Resources <a id="resources-"></a>[▴](#contents)
 
-* [Github/swift-package-manager: PackageDescription API Version 4.2 ⇗](https://github.com/apple/swift-package-manager/blob/master/Documentation/PackageDescriptionV4_2.md)
+* [Github/swift-package-manager: PackageDescription ⇗](https://github.com/apple/swift-package-manager/blob/master/Documentation/PackageDescription.md)
 * [Swift by Sundell: Building a command line tool using the Swift Package Manager ⇗](https://www.swiftbysundell.com/posts/building-a-command-line-tool-using-the-swift-package-manager)
 * [Swift by Sundell: Providing a unified Swift error API ⇗](https://www.swiftbysundell.com/posts/providing-a-unified-swift-error-api)
