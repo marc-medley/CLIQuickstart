@@ -1,5 +1,5 @@
 ## Place to put notes that are not to be checked in.
-*_Notes/
+*__LOCAL
 
 #################
 ## Apple macOS ##
@@ -11,6 +11,7 @@
 ## Apple Xcode ##
 #################
 *.xcodeproj
+.swiftpm
 
 ###########################
 ## Swift Package Manager ##
