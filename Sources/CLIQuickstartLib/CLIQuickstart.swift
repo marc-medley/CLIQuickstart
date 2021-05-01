@@ -9,10 +9,13 @@ import Foundation
 
 public final class CLIQuickstart {
     private let arguments: [String]
-
+    
     /// NYI: does provide for a terminationHandler(Process) -> Void
     public init(arguments: [String] = CommandLine.arguments) { 
         self.arguments = arguments
+        
+        print(":LIB: Bundle.moduleDir=\(Bundle.resourceModuleDir)")
+        print(":LIB: Bundle.module=\(Bundle.module)")
     }
 
     public func run() throws {

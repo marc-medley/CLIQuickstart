@@ -1,4 +1,4 @@
-## Place to put notes that are not to be checked in.
+## Use `*__LOCAL` for items that are not to be checked in.
 *__LOCAL
 
 #################
@@ -7,18 +7,16 @@
 # see Icon as end of this file
 .DS_Store
 
-#################
-## Apple Xcode ##
-#################
-*.xcodeproj
-.swiftpm
-
-###########################
-## Swift Package Manager ##
-###########################
+#####################################
+## Swift Package Manager: Defaults ##
+#####################################
+.DS_Store
 /.build
 /Packages
-Package.resolved
+/*.xcodeproj
+xcuserdata/
+DerivedData/
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
 
 ###########
 ## C/C++ ##
@@ -64,6 +62,11 @@ Package.resolved
 
 # Debug files
 *.dSYM/
+
+#################
+## LibreOffice ##
+#################
+.~lock*
 
 ###########
 ## Hidden SourceTree "Iconr" which is really "Icon\r"

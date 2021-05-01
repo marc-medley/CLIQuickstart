@@ -5,6 +5,12 @@
 [Miscellaneous](#miscellaneous-) • 
 [Resources](#resources-) 
 
+**TODO**
+
+* change `main.swift` file to `@main` attribute
+* find where the resources are placed after build on various computer platforms. On macOS, include build types: command line, Xcode with Package.swift and a generated Xcode project.
+    * 
+
 _`CLIQuickstartTool` is a quickstart template for a library with a command line interface tool based on the Swift Package Manager.  The package provides both an executable module and a core framework module.  The executable plus core approach allows the `CLIQuickstartLib` framework to also be used as dependency in other Swift Packages._
 
 **Options:**
@@ -168,6 +174,8 @@ sudo mkdir -p /opt/local/bin
 // -f force overwrite of existing file
 cp -f CLIQuickstart /opt/local/bin/CLIQuickstart
 ```
+
+_Windows_
 
 _Ubuntu_
 

@@ -2,6 +2,10 @@ import Foundation
 import CLIQuickstartLib
 
 showEnvironment()
+print(":MAIN: Bundle.moduleDir=\(Bundle.module)")
+print(":MAIN: Bundle.moduleDir=\(Bundle.resourceModuleDir)")
+
+
 let tool = CLIQuickstart()
 
 do {

@@ -1,14 +1,17 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.4
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
     name: "CLIQuickstartLib",
+    defaultLocalization: "en",
     platforms: [
         // specify each minimum deployment requirement, 
         // otherwise the platform default minimum is used.
-        .macOS(.v10_15), // .v10_13 High Sierra .v10_14 Mojave, .v10_15 Catalina 
+        .macOS(.v10_15), // .v10_13 High Sierra .v10_14 Mojave, .v10_15 Catalina
+        // Note: .v10_15 and .v11_x are not enumerated on struct MacOSVersion
+        // can also be a string like .macOS("11.3") or .macOS("10.10.1")
     ],
     products: [
         // Products define the executables and libraries produced by a package, 
@@ -31,16 +34,22 @@ let package = Package(
         // A target can define a module or a test suite.
         // Targets can depend on other targets in this package, 
         // and on products in packages which this package depends on.
-        .target(
+        Target.target(
             name: "CLIQuickstartLib",
-            dependencies: []),
-        .target(
+            dependencies: [],
+            resources: [.copy("Resources/"),]
+        ),
+        Target.executableTarget(
             name: "CLIQuickstartTool",
-            dependencies: ["CLIQuickstartLib"]),
+            dependencies: ["CLIQuickstartLib"],
+            resources: [.copy("Resources/"),]
+        ),
         // Test CLIQuickstartLib directly instead of CLIQuickstartTool main.swift
-        .testTarget(
+        Target.testTarget(
             name: "CLIQuickstartLibTests",
-            dependencies: ["CLIQuickstartLib"]),
+            dependencies: ["CLIQuickstartLib"],
+            resources: [.copy("Resources/"),]
+        ),
     ],
     swiftLanguageVersions: [.v5],
     cLanguageStandard: .c11, // gnu11, iso9899_2011

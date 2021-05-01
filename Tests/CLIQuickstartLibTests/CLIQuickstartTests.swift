@@ -26,29 +26,29 @@ final class CLIQuickstartTests: XCTestCase {
         print("\n######################")
         print("## testExecutable() ##")
         print("######################")
-
+        
         // Some APIs used require macOS 10.13 and above.
         guard #available(macOS 10.13, *) else {
             return
         }
-
+        
         // Create an expectation for a background task.
         let expectation = XCTestExpectation(description: "Some background task.")
-
+        
         
         // build products directory
         let executableUrl = productsDirectory.appendingPathComponent("CLIQuickstartTool")
-
+        
         // https://developer.apple.com/documentation/foundation/process
         let process = Process()
         process.executableURL = executableUrl
-
+        
         var arguments = [String]()
         arguments.append("-flag")
         arguments.append("--param1=value1")
         arguments.append(contentsOf: ["--param2=value2", "-other-flag"])
         process.arguments = arguments
-
+        
         process.terminationHandler = { 
             (task: Process) -> Void in
             print("•••ENTER••• terminationHandler")
@@ -79,11 +79,11 @@ final class CLIQuickstartTests: XCTestCase {
         else {
             throw CLIQuickstart.Error.failedToDoSomething
         }
-
+        
         process.waitUntilExit()
         let status: Int32 = process.terminationStatus
         print("## TERMINATION STATUS: \(status)")
-
+        
         let reason: Process.TerminationReason = process.terminationReason
         print("## TERMINATION REASON: \(reason.rawValue) (.exit==1, .uncaughtSignal==2)")
         
@@ -103,7 +103,7 @@ final class CLIQuickstartTests: XCTestCase {
         arguments.append("--param1=value1")
         arguments.append(contentsOf: ["--param2=value2", "-other-flag"])
         let tool = CLIQuickstart(arguments: arguments)
-
+        
         // Run the tool and assert that the file was created
         do {
             try tool.run()
@@ -118,23 +118,29 @@ final class CLIQuickstartTests: XCTestCase {
     
     /// Returns path to the build products directory.
     var productsDirectory: URL {
-      #if os(macOS)
+        #if os(macOS)
         for bundle in Bundle.allBundles where bundle.bundlePath.hasSuffix(".xctest") {
             return bundle.bundleURL.deletingLastPathComponent()
         }
-        fatalError("couldn't find the products directory")
-      #else
+        fatalError(":ERROR:TEST: couldn't find the products directory")
+        #else
         return Bundle.main.bundleURL
-      #endif
+        #endif
     }
     
     func testProductsDirectory() {
         print("\n#############################")
-        print("## testProductsDirectory() ##")
-        print("#############################\n")
+        print(  "## testProductsDirectory() ##")
+        print(  "#############################\n")
         
         print("productsDirectory = '\(productsDirectory)'")
-        print("#####\n")        
+        
+        print(":TEST: Bundle.moduleDir=\(Bundle.resourceModuleDir)")
+        print(":TEST: Bundle.module=\(Bundle.module)")
+
+        print("#####\n")     
+        
+        
     }
     
     static var allTests = [
