@@ -1,4 +1,6 @@
-## Use `*__LOCAL` for items that are not to be checked in.
+###################################
+### Local Items: Not Checked In ###
+###################################
 *__LOCAL
 
 ###################
