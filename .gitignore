@@ -1,16 +1,19 @@
 ## Use `*__LOCAL` for items that are not to be checked in.
 *__LOCAL
 
-#################
-## Apple macOS ##
-#################
-# see Icon as end of this file
+###################
+### Apple macOS ###
+###################
 .DS_Store
+
+### SourceTree "Iconr" has a carriage return aka "Icon\r" or "Icon\x0d"
+### find . -name Icon$'\u000d' -print
+### case sensitive, single character wildcard
+Icon?
 
 #####################################
 ## Swift Package Manager: Defaults ##
 #####################################
-.DS_Store
 /.build
 /Packages
 /*.xcodeproj
@@ -67,8 +70,3 @@ DerivedData/
 ## LibreOffice ##
 #################
 .~lock*
-
-###########
-## Hidden SourceTree "Iconr" which is really "Icon\r"
-Icon?
-
