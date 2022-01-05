@@ -1,4 +1,4 @@
-// swift-tools-version:5.4
+// swift-tools-version:5.5
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -9,9 +9,9 @@ let package = Package(
     platforms: [
         // specify each minimum deployment requirement, 
         // otherwise the platform default minimum is used.
-        .macOS(.v10_15), // .v10_13 High Sierra .v10_14 Mojave, .v10_15 Catalina
-        // Note: .v10_15 and .v11_x are not enumerated on struct MacOSVersion
+        // .v10_13 High Sierra .v10_14 Mojave, .v10_15 Catalina, .v11 Big Sur
         // can also be a string like .macOS("11.3") or .macOS("10.10.1")
+        .macOS(.v10_15), 
     ],
     products: [
         // Products define the executables and libraries produced by a package, 
@@ -27,7 +27,8 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
-        // .package( url: " ", .branch("master") )
+        // .package( url: " ", .branch("master") ),
+        // .package(url: "git@gitlab.com:GROUP/SUBGROUP/REPO.git", .branch("master") ),
     ],
     targets: [
         // Targets are the basic building blocks of a package. 
