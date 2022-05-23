@@ -1,4 +1,87 @@
-# CLIQuickstartTool
+# CLIQuickstartLib
+
+_**Title: url(forResource:withExtension:subdirectory:localization:) with SwiftPM is inconsistent (at best) and causes "core dump" (at worst)**_
+
+The `url(forResource:withExtension:subdirectory:localization:)` resource location method is (at best) inconsistent across platforms and can (at worst) cause a "core dump" when used with a Swift Package which includes resources.
+
+
+
+_`CLIQuickstartLib` is an "almost" minimal Swift Package Manager template with various package resources. The package provides both an executable module and a core framework library module. Resources are included for each the library, the executable and the tests._
+
+The "not-quite" minimal part is the addition checks for various approaches to resource access.
+
+Factors
+
+* platform: Linux, macOS
+* build chain execution: Linux command line interface (CLI), macOS command line interface (CLI), macOS Xcode IDE
+* top level resources directory name: `Resources` or something else
+* resource asset directory level: top level or some sub directory
+* use of localization
+
+Given a package with the code and resources structure show below:
+
+```
+```
+
+The built product resource structure varies based on the platform and build chain used
+
+```
+```
+
+In general, `url(forResource: …, withExtension: …, …)` is expected to reliably handle cross-platform differences in a reliably consistent and robust way.
+
+However, here is the observed table of what access path names work:
+
+|                  _(subdirectory)_ `forResource:` | Linux CLI   | macOS CLI   | macOS Xcode | 
+|-------------------------------------------------:|:-----------:|:-----------:|:-----------:|
+|           **`Resources/resource_file_tool.txt`** | 💥 | 👍 | 👍 |
+|              `(Resources)resource_file_tool.txt` | 💥 | 👍 | 👍 |
+|                         `resource_file_tool.txt` | 👍 | 👍 | 🚫 |
+|            **`Resources/resource_file_lib.txt`** | 💥 | 👍 | 👍 |
+|               `(Resources)resource_file_lib.txt` | 💥 | 👍 | 👍 |
+|                          `resource_file_lib.txt` | 👍 | 👍 | 🚫 |
+|                    **`Resources/img/watch.jpg`** | 👍 | 👍 | 👍 |
+|                       `(Resources/img)watch.jpg` | 👍 | 👍 | 👍 |
+|                                  `img/watch.jpg` | 👍 | 👍 | 🚫 |
+|                                 `(img)watch.jpg` | 👍 | 👍 | 🚫 |
+|                                      `watch.jpg` | 🚫 | 🚫 | 🚫 |
+|        **`Resources_A/resource_file_lib_a.txt`** | 👍 | 👍 | 👍 |
+|           `(Resources_A)resource_file_lib_a.txt` | 👍 | 👍 | 👍 |
+|                        `resource_file_lib_a.txt` | 🚫 | 🚫 | 🚫 |
+|            **`Resources_A/img/electricity.jpg`** | 👍 | 👍 | 👍 |
+|               `(Resources_A/img)electricity.jpg` | 👍 | 👍 | 👍 |
+|                            `img/electricity.jpg` | 🚫 | 🚫 | 🚫 |
+|                           `(img)electricity.jpg` | 🚫 | 🚫 | 🚫 |
+|                                `electricity.jpg` | 🚫 | 🚫 | 🚫 |
+|                                                  | | | |
+|            "en" **`Resources/LocalData00.json`** | 💥 | 👍 | 🚫 |
+|               "en" `(Resources)LocalData00.json` | 💥 | 👍 | 🚫 |
+|                          "en" `LocalData00.json` | 👍 | 👍 | 🚫 |
+|                       "es-MX" `LocalData00.json` | 👍 | 👍 | 🚫 |
+|    "en" `Resources/DataFiles/…/LocalData01.json` | 🚫 | 🚫 | 🚫 |
+|            "en" `Resources_A/…/LocalData10.json` | 🚫 | 🚫 | 🚫 |
+|  "en" `Resources_A/DataFiles/…/LocalData11.json` | 🚫 | 🚫 | 🚫 |
+
+_💥 Fatal Runtime Error (Linux CLI)_
+
+``` sh
+# Foundation/NSCFString.swift:119: Fatal error: Constant strings cannot be deallocated
+# Illegal instruction (core dumped)
+```
+
+**Issues**
+
+* Top level resource assets can not accessed in a uniform way across platforms.
+* Top level _resource directory name_ affects how assets can be successfully accessed.
+* In some cases, Swift Foundation on Linux exhibits a _fatal runtime error_.
+
+**Cross Platform Workaround**
+
+A uniform approach which avoids cross platform `#if os(…)` compiler directives:
+
+1. Put all assets in a resources subdirectory.
+2. Provide the `forResource:` argument with the _full sub-path name_.
+
 
 <a id="contents"></a>
 [Original Project Setup](#original-project-setup-) • 
@@ -11,7 +94,7 @@
 * find where the resources are placed after build on various computer platforms. On macOS, include build types: command line, Xcode with Package.swift and a generated Xcode project.
     * 
 
-_`CLIQuickstartTool` is a quickstart template for a library with a command line interface tool based on the Swift Package Manager.  The package provides both an executable module and a core framework module.  The executable plus core approach allows the `CLIQuickstartLib` framework to also be used as dependency in other Swift Packages._
+_TODO: Linux Tests_
 
 **Options:**
 
@@ -122,12 +205,7 @@ do {
 
 **Xcode**
 
-Generate an Xcode project.
-
-``` sh
-swift package update
-swift package generate-xcodeproj --xcconfig-overrides
-```
+Right-click `Package.swift`. Select `Open With` > `Xcode.app`. 
 
 **Run**
 
@@ -194,6 +272,11 @@ cp -f CLIQuickstart /opt/local/bin/CLIQuickstart
 
 ## Resources <a id="resources-"></a>[▴](#contents)
 
+* Apple Developer Documentation
+    * [`CFBundleDevelopmentRegion`](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundledevelopmentregion)
+    * [Swift Packages](https://developer.apple.com/documentation/swift_packages)
+        * [Bundling Resources with a Swift Package](https://developer.apple.com/documentation/swift_packages/bundling_resources_with_a_swift_package)
+        * [Localizing Package Resources](https://developer.apple.com/documentation/swift_packages/localizing_package_resources)
 * [Github/swift-package-manager: PackageDescription ⇗](https://github.com/apple/swift-package-manager/blob/master/Documentation/PackageDescription.md)
 * [Swift by Sundell: Building a command line tool using the Swift Package Manager ⇗](https://www.swiftbysundell.com/posts/building-a-command-line-tool-using-the-swift-package-manager)
 * [Swift by Sundell: Providing a unified Swift error API ⇗](https://www.swiftbysundell.com/posts/providing-a-unified-swift-error-api)

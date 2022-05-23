@@ -1,1 +1,1 @@
-TEXT_TEMPLATE
+File: resource_file_lib.txt

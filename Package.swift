@@ -38,18 +38,18 @@ let package = Package(
         Target.target(
             name: "CLIQuickstartLib",
             dependencies: [],
-            resources: [.copy("Resources/"),]
+            resources: [.copy("Resources"), .copy("Resources_A")]
         ),
         Target.executableTarget(
             name: "CLIQuickstartTool",
             dependencies: ["CLIQuickstartLib"],
-            resources: [.copy("Resources/"),]
+            resources: [.copy("Resources"),]
         ),
         // Test CLIQuickstartLib directly instead of CLIQuickstartTool main.swift
         Target.testTarget(
             name: "CLIQuickstartLibTests",
             dependencies: ["CLIQuickstartLib"],
-            resources: [.copy("Resources/"),]
+            resources: [.copy("Resources"),]
         ),
     ],
     swiftLanguageVersions: [.v5],

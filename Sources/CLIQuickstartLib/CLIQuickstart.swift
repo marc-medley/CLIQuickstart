@@ -8,14 +8,17 @@
 import Foundation
 
 public final class CLIQuickstart {
+    // Use if public access is intended.
+    public static let resourceModule = Bundle.module
+    
+    //
     private let arguments: [String]
     
     /// NYI: does provide for a terminationHandler(Process) -> Void
     public init(arguments: [String] = CommandLine.arguments) { 
         self.arguments = arguments
         
-        print(":LIB: Bundle.moduleDir=\(Bundle.resourceModuleDir)")
-        print(":LIB: Bundle.module=\(Bundle.module)")
+        print("•LIB• library module resources: \(Bundle.module.bundlePath)")
     }
 
     public func run() throws {

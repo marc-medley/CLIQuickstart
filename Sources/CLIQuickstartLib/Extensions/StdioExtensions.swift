@@ -9,8 +9,8 @@ import Foundation
 
 // **Notes**
 //
-// * StdioExtensions.swift provides three approaches for adding stderr access.
-// * StdioExtensions.swift is not needed if only stdout output will be used.
+// * StdioExtensions.swift provides three approaches for adding `stderr` access.
+// * StdioExtensions.swift is not needed if only `stdout` output will be used.
 
 extension FileHandle : TextOutputStream {
     public func write(_ string: String) {
@@ -19,9 +19,9 @@ extension FileHandle : TextOutputStream {
     }
 }
 
-////////////////////////////
+// ////////////////////// //
 // Approach: add function //
-////////////////////////////
+// ////////////////////// //
 // Adds printError() for stderr.
 // Use  existing print() for stdout.
 
@@ -36,9 +36,9 @@ func printError(_ string: String) {
     stderr.write(data)
 }
 
-/////////////////////////////////////////////////////
+// /////////////////////////////////////////////// //
 // Approach: global standardError & standardOutput //
-/////////////////////////////////////////////////////
+// /////////////////////////////////////////////// //
 // Adds `standardError` for
 // Adds `standardOutput` so that stdout can be access in same approach as standardError
 
@@ -47,9 +47,9 @@ var standardError = FileHandle.standardError
 /// System stdout output text stream.
 var standardOutput = FileHandle.standardOutput
 
-////////////////////////////////////
+// /////////////////////////////////
 // Approach: add stdio structures //
-////////////////////////////////////
+// /////////////////////////////////
 
 struct StandardErrorStream: TextOutputStream {
     private let stderrStream = FileHandle.standardError

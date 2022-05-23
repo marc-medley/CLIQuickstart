@@ -1,10 +1,15 @@
+//
+//  main.swift
+//  CLIQuickstartLib::CLIQuickstartTool
+//
+
 import Foundation
 import CLIQuickstartLib
 
-showEnvironment()
-print(":MAIN: Bundle.moduleDir=\(Bundle.module)")
-print(":MAIN: Bundle.moduleDir=\(Bundle.resourceModuleDir)")
+ResourceHelper.checkResourceAccessApproaches()
+//ResourceHelper.showEnvironment()
 
+// Minimal Executable
 
 let tool = CLIQuickstart()
 
@@ -15,4 +20,3 @@ do {
     print("CLIQuickstartLib tool.run() error: '\(error)'")
     exit(EXIT_FAILURE)
 }
-
