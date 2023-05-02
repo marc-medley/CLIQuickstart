@@ -102,7 +102,7 @@ _TODO: Linux Tests_
 CLIQuickstartTool --param=value
 ```
 
-## Original Project Setup <a id="original-project-setup-"></a>[▴](#contents)
+## Original Project Setup <a id="original-project-setup-"></a><sup>[▴](#contents)</sup>
 
 Summary of original steps used to create the CLIQuickstart example template.
 
@@ -265,12 +265,12 @@ cd .build/release
 cp -f CLIQuickstart /opt/local/bin/CLIQuickstart
 ```
 
-## Miscellaneous <a id="miscellaneous-"></a>[▴](#contents)
+## Miscellaneous <a id="miscellaneous-"></a><sup>[▴](#contents)</sup>
 
 * The archive action does not code sign command-line executable products from Swift packages. (48717735) [Xcode 11 release notes.](https://developer.apple.com/documentation/xcode_release_notes/xcode_11_release_notes)
     * Workaround: Manually sign archived executables using the `codesign` tool before distributing them.
 
-## Resources <a id="resources-"></a>[▴](#contents)
+## Resources <a id="resources-"></a><sup>[▴](#contents)</sup>
 
 * Apple Developer Documentation
     * [`CFBundleDevelopmentRegion`](https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundledevelopmentregion)
